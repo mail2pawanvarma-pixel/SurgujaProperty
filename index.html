@@ -1,555 +1,350 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="hi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Surguja Property Hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#ffffff; --fg:#141821; --muted:#5b667a; --primary:#1E88E5; --primary-600:#1874c2;
-      --surface:#f5f7fb; --ok:#0f9d58; --warn:#d93025; --radius:14px; --shadow:0 8px 24px rgba(0,0,0,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--fg);background:var(--bg)}
-    a{color:var(--primary);text-decoration:none}
-    .container{max-width:960px;margin:0 auto;padding:0 16px}/* Header */
-header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.9);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid #eef1f6}
-.nav{display:flex;align-items:center;justify-content:space-between;min-height:64px}
-.brand{display:flex;gap:10px;align-items:center}
-.logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--primary),#51a7ff);box-shadow:var(--shadow)}
-.brand h1{font-size:1.05rem;margin:0;font-weight:700;letter-spacing:.2px}
-.nav a.btn{padding:.6rem .9rem;border:1px solid #dfe6f1;border-radius:10px;color:var(--fg)}
-.nav a.btn:hover{border-color:#cfd9ea}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Surguja Property Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Mobile-first, no horizontal overflow */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f7f9fc;color:#111; -webkit-text-size-adjust:100%}
+body{padding-bottom:80px} /* space for bottom controls if needed */
 
-/* Hero */
-.hero{padding:28px 0 10px}
-.hero .card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;display:grid;gap:10px;align-items:center}
-.hero h2{margin:0;font-size:1.25rem}
-.hero p{margin:0;color:var(--muted)}
+:root{
+  --bg:#f7f9fc;
+  --card:#ffffff;
+  --primary:#1e88e5;
+  --primary-dark:#1565c0;
+  --muted:#6b7280;
+  --radius:12px;
+  --shadow: 0 6px 18px rgba(13,21,35,0.08);
+}
 
-/* Grid */
-.grid{display:grid;gap:16px}
-@media(min-width:768px){ .hero .card{grid-template-columns:1.2fr .8fr} .grid-2{grid-template-columns:1fr 1fr} }
+/* Page frame */
+header{
+  position:sticky;top:0;z-index:20;
+  background:var(--card);
+  display:flex;align-items:center;gap:12px;padding:10px 14px;
+  border-bottom:1px solid rgba(0,0,0,0.04);
+}
+.header-left{display:flex;align-items:center;gap:10px;min-width:0}
+.logo {
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,var(--primary),#42a5f5);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;
+  flex-shrink:0;
+  box-shadow:0 6px 18px rgba(30,136,229,0.12);
+}
+.app-title{font-size:1.05rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* Cards */
-.card{background:#fff;border:1px solid #eef1f6;border-radius:var(--radius);box-shadow:var(--shadow)}
-.card h3{margin:0 0 8px;font-size:1.05rem}
-.card-body{padding:16px}
-.muted{color:var(--muted)}
+/* container keeps content centered and prevents horizontal overflow */
+.container{width:100%;max-width:920px;margin:0 auto;padding:16px}
 
-/* Form */
-form{display:grid;gap:12px}
-.row{display:grid;gap:12px}
-@media(min-width:560px){.row{grid-template-columns:1fr 1fr}}
-label{display:block;font-weight:600;margin:0 0 6px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #dfe6f1;border-radius:10px;background:#fff;font:inherit;transition:border .2s ease, box-shadow .2s ease}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(30,136,229,.15)}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn{appearance:none;border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;transition:transform .04s ease, box-shadow .2s ease, background .2s ease}
-.btn:active{transform:translateY(1px)}
+/* Card */
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:16px;overflow:hidden}
+.card h2{margin:0 0 8px;font-size:1.05rem}
+.small-muted{color:var(--muted);font-size:.95rem;margin-bottom:10px;line-height:1.3}
+
+/* Form controls - full width, touch friendly */
+label{display:block;margin:6px 0 6px;font-weight:600;font-size:.95rem}
+input,select,textarea{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #dbe6f0;background:#fff;font-size:1rem;line-height:1.3}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 6px 18px rgba(30,136,229,0.08);border-color:var(--primary)}
+textarea{min-height:78px;resize:vertical}
+
+/* grid responsive */
+.grid{display:grid;gap:12px}
+@media(min-width:720px){.grid-2{grid-template-columns:1fr 1fr;gap:12px}}
+
+/* actions */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:0.98rem}
 .btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--primary-600)}
-.btn-ghost{background:#fff;border:1px solid #e4e9f3}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;background:#eef5ff;color:#0a3d77;font-weight:600;font-size:.8rem}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-ghost{background:#eef6ff;color:#0b2540}
 
-/* Toast */
-.toast{position:fixed;inset:auto 16px 16px auto;background:#111827;color:#fff;padding:12px 14px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(10px);transition:opacity .3s ease, transform .3s ease;z-index:50}
-.toast.show{opacity:1;transform:translateY(0)}
+/* Classified list */
+.class-list{display:flex;flex-direction:column;gap:12px;padding:2px 0}
+.class-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:var(--card);
+  padding:12px;
+  border-radius:12px;
+  box-shadow: 0 6px 18px rgba(13,21,35,0.04);
+  min-height:56px;
+  width:100%;
+  overflow:hidden;
+}
+.class-left{display:flex;align-items:center;gap:12px;min-width:0}
+.badge{background:#e9f2ff;color:var(--primary);padding:6px 10px;border-radius:999px;font-weight:700;font-size:.82rem;flex-shrink:0}
+.class-info{min-width:0}
+.class-info strong{display:block;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.class-info .meta{color:var(--muted);font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* Admin */
-.admin-banner{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid #eef1f6}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap}
-table{width:100%;border-collapse:separate;border-spacing:0 8px}
-th,td{text-align:left;padding:10px 12px}
-thead th{font-size:.86rem;color:#556070}
-tbody tr{background:#fff;border:1px solid #eef1f6}
-tbody td:first-child{border-top-left-radius:12px;border-bottom-left-radius:12px}
-tbody td:last-child{border-top-right-radius:12px;border-bottom-right-radius:12px}
+/* small view button */
+.view-btn{background:#f3f7fb;border-radius:10px;padding:8px 10px;font-weight:700;color:#1a2b3a;min-width:64px;text-align:center}
 
-/* Modal */
-.modal{position:fixed;inset:0;background:rgba(7,12,20,.6);display:none;align-items:center;justify-content:center;z-index:60}
+/* modal */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:40}
 .modal.active{display:flex}
-.modal .panel{width:min(560px,92vw);background:#fff;border-radius:16px;box-shadow:var(--shadow)}
-.panel .hd{padding:16px;border-bottom:1px solid #eef1f6;font-weight:700}
-.panel .bd{padding:16px}
+.modal-box{width:94%;max-width:520px;background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
 
-/* Animations (subtle) */
-.fade-in{animation:fade .5s ease 1}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* toast */
+.toast{position:fixed;right:14px;bottom:14px;background:#111;color:#fff;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
 
-/* Classified one-line layout */
-.class-row{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid #eef1f6;border-radius:12px;box-shadow:var(--shadow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.badge{font-size:.75rem;background:#eef5ff;border:1px solid #dfe6f1;border-radius:999px;padding:2px 8px}
-.grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+/* admin area */
+#adminPanel table{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden}
+#adminPanel th,#adminPanel td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(0,0,0,0.04);font-size:.95rem}
+#adminPanel thead th{background:#fafbfc;font-weight:700}
 
 /* Footer */
-footer{margin:24px 0;padding:16px;border-top:1px solid #eef1f6;font-size:.95rem;color:var(--muted)}
-.footer-grid{display:grid;gap:10px}
-@media(min-width:640px){.footer-grid{grid-template-columns:1.5fr 1fr 1fr}}
-
-  </style>
+footer{padding:14px 8px;text-align:center;color:var(--muted);font-size:.95rem}
+</style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <h1>Surguja Property Hub</h1>
-      </div>
-      <nav></nav>
-    </div>
-  </header>  <main class="container">
-    <section class="hero">
-      <div class="card fade-in">
-        <div>
-          <h2>Find property tailored to your requirement</h2>
-          <p class="muted">सुरगुजा संभाग केंद्रित खरीदार सेवा। अपनी आवश्यकता साझा करें; जैसे ही उपयुक्त संपत्ति उपलब्ध होगी, हम आपको सूचित करेंगे।</p>
-          <div style="margin-top:10px" class="chip">Service area: Surguja Sambhag</div>
-        </div>
-        <div class="card" style="border:none;background:transparent;box-shadow:none">
-          <div class="card-body" style="padding:0">
-            <div class="muted" style="font-size:.9rem">No login required. Phone number is mandatory.</div>
-          </div>
-        </div>
-      </div>
-    </section><section class="grid grid-2" style="margin-top:16px">
-  <!-- Buyer Requirement Form -->
-  <div class="card fade-in" id="formCard">
-    <div class="card-body">
-      <h3>Register your requirement</h3>
-      <form id="reqForm" autocomplete="on">
-        <div>
-          <label for="name">Full Name</label>
-          <input id="name" name="name" type="text" placeholder="e.g., Raj Kumar" />
-        </div>
-        <div class="row">
-          <div>
-            <label for="phone">Phone (required)</label>
-            <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="10-digit mobile" required />
-          </div>
-          <div>
-            <label for="whatsapp">WhatsApp</label>
-            <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" placeholder="Optional" />
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <label for="location">Preferred Location / Area</label>
-            <input id="location" name="location" type="text" placeholder="e.g., Ambikapur, Udaipur, Premnagar" />
-          </div>
-          <div>
-            <label for="ptype">Property Type</label>
-            <select id="ptype" name="ptype">
-              <option value="Plot">Plot</option>
-              <option value="House">House</option>
-              <option value="Land">Land</option>
-              <option value="Commercial">Commercial</option>
-            </select>
-          </div>
-        </div>
-        <div class="row">
-          <div>
-            <label for="budgetMin">Budget Min (₹)</label>
-            <input id="budgetMin" name="budgetMin" type="number" min="0" step="10000" placeholder="e.g., 500000" />
-          </div>
-          <div>
-            <label for="budgetMax">Budget Max (₹)</label>
-            <input id="budgetMax" name="budgetMax" type="number" min="0" step="10000" placeholder="e.g., 2500000" />
-          </div>
-        </div>
-        <div>
-          <label for="notes">Additional Notes</label>
-          <textarea id="notes" name="notes" rows="3" placeholder="Road width, facing, loan need, timeline, etc."></textarea>
-        </div>
-        <div>
-          <label style="display:flex;gap:8px;align-items:center;font-weight:400">
-            <input type="checkbox" id="consent" /> I agree to be contacted via phone/WhatsApp about suitable properties.
-          </label>
-        </div>
-        <div class="actions">
-          <button class="btn btn-primary" type="submit">Submit Requirement</button>
-          <button class="btn btn-ghost" type="reset">Clear</button>
-        </div>
-        <div id="submitHint" class="muted" style="font-size:.9rem"></div>
-      </form>
-    </div>
-  </div>
 
-  <!-- Classified Listings -->
-  <div class="card fade-in">
-    <div class="card-body">
-      <h3>Classified Listings</h3>
-      <div class="grid" id="classGrid" style="grid-template-columns:1fr;gap:12px"></div>
-      <div class="muted" style="margin-top:10px;font-size:.9rem">Edit the <code>classifieds</code> array in script to manage listings.</div>
+<header>
+  <div class="header-left">
+    <div class="logo">SP</div>
+    <div style="min-width:0">
+      <div class="app-title">Surguja Property Hub</div>
     </div>
   </div>
-</section>
+</header>
 
-<!-- Admin Panel (outside grid) -->
-<section id="adminPanel" class="card fade-in" style="display:none;margin-top:18px">
-  <div class="admin-banner">
-    <strong>Admin Panel</strong>
-    <div class="toolbar">
-      <button class="btn btn-ghost" id="btnExportCsv">Export CSV</button>
-      <button class="btn btn-ghost" id="btnExportJson">Export JSON</button>
-      <label class="btn btn-ghost" for="importJson">Import JSON</label>
-      <input type="file" id="importJson" accept="application/json" style="display:none" />
-      <button class="btn btn-ghost" id="btnLogout">Lock</button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="grid" style="gap:10px;margin-bottom:8px">
-      <div class="row">
+<main class="container">
+  <!-- Requirement form -->
+  <section class="card" aria-labelledby="reqTitle">
+    <h2 id="reqTitle">अपनी आवश्यकता दर्ज करें</h2>
+    <p class="small-muted">सुरगुजा संभाग केंद्रित खरीदार सेवा। अपनी आवश्यकता साझा करें; जैसे ही उपयुक्त संपत्ति उपलब्ध होगी, हम आपको सूचित करेंगे।</p>
+
+    <form id="reqForm" novalidate>
+      <label for="name">नाम</label>
+      <input id="name" name="name" type="text" placeholder="पूरा नाम">
+
+      <label for="phone">फ़ोन नंबर (अनिवार्य)</label>
+      <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="10-digit mobile" required>
+
+      <label for="whatsapp">व्हाट्सएप</label>
+      <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" placeholder="Optional">
+
+      <div class="grid grid-2" style="margin-top:8px">
         <div>
-          <label for="fltType">Filter: Type</label>
-          <select id="fltType">
-            <option value="">Any</option>
+          <label for="location">स्थान</label>
+          <input id="location" name="location" type="text" placeholder="e.g., Ambikapur">
+        </div>
+        <div>
+          <label for="ptype">प्रॉपर्टी प्रकार</label>
+          <select id="ptype" name="ptype">
             <option>Plot</option>
             <option>House</option>
             <option>Land</option>
             <option>Commercial</option>
+            <option>Rental</option>
           </select>
         </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:8px">
         <div>
-          <label for="fltLoc">Filter: Location keyword</label>
-          <input id="fltLoc" placeholder="e.g., Ambikapur" />
+          <label for="budgetMin">Budget Min (₹)</label>
+          <input id="budgetMin" name="budgetMin" type="number" placeholder="e.g., 500000">
+        </div>
+        <div>
+          <label for="budgetMax">Budget Max (₹)</label>
+          <input id="budgetMax" name="budgetMax" type="number" placeholder="e.g., 2500000">
         </div>
       </div>
-      <div class="row">
-        <div>
-          <label for="fltMin">Budget Min (₹)</label>
-          <input id="fltMin" type="number" min="0" step="10000" />
-        </div>
-        <div>
-          <label for="fltMax">Budget Max (₹)</label>
-          <input id="fltMax" type="number" min="0" step="10000" />
-        </div>
+
+      <label for="notes" style="margin-top:8px">नोट्स</label>
+      <textarea id="notes" name="notes" placeholder="Road width, facing, loan need, etc."></textarea>
+
+      <div style="margin-top:10px">
+        <label style="font-weight:600"><input id="consent" type="checkbox" style="margin-right:8px"> मुझे फोन/व्हाट्सएप पर संपर्क किया जा सकता है</label>
       </div>
-    </div>
+
+      <div class="actions" style="margin-top:12px">
+        <button type="submit" class="btn-primary">Submit Requirement</button>
+        <button type="reset" class="btn-ghost" type="button">Clear</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Classifieds -->
+  <section class="card" aria-labelledby="listTitle">
+    <h2 id="listTitle">Classified Listings</h2>
+    <div id="classGrid" class="class-list" aria-live="polite" style="margin-top:8px"></div>
+    <p class="small-muted" style="margin-top:10px">लिहाजा आप चाहें तो यहाँ अपनी लिस्टिंग जोड़ सकते हैं।</p>
+  </section>
+
+  <!-- Admin -->
+  <section id="adminPanel" class="card" style="display:none">
+    <h2>Admin Panel</h2>
     <div style="overflow:auto">
-      <table id="reqTable" aria-label="Buyer requirements table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>WhatsApp</th>
-            <th>Type</th>
-            <th>Location</th>
-            <th>Budget</th>
-            <th>Notes</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
+      <table>
+        <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Type</th><th>Location</th></tr></thead>
+        <tbody id="reqBody"></tbody>
       </table>
     </div>
+  </section>
+
+  <div style="text-align:center;margin-top:8px">
+    <button id="adminBtn" class="btn-ghost">Admin</button>
   </div>
-</section>
 
-  </main>  <!-- Detail Modal for Classifieds -->  <div class="modal" id="classModal" role="dialog" aria-modal="true" aria-labelledby="classTitle">
-    <div class="panel">
-      <div class="hd" id="classTitle">Listing Details</div>
-      <div class="bd" id="classBody"></div>
-    </div>
-  </div>  <!-- Privacy Policy Modal -->  <div class="modal" id="policyModal" role="dialog" aria-modal="true" aria-labelledby="policyTitle">
-    <div class="panel">
-      <div class="hd" id="policyTitle">Privacy Policy (simplified)</div>
-      <div class="bd">
-        <p>We store your submitted details locally to contact you with relevant properties. We do not share your data publicly. You can request deletion by contacting us.</p>
-        <button class="btn btn-primary" id="closePolicy">Close</button>
-      </div>
-    </div>
-  </div>  <div id="toast" class="toast" role="status" aria-live="polite"></div>  <footer>
-    <div class="container footer-grid">
-      <div>
-        <strong>Surguja Property Hub</strong><br/>
-        Email: <a href="mailto:contact@rebrainsolutions.in">contact@rebrainsolutions.in</a><br/>
-        Phone: <a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a>
-      </div>
-      <div>
-        <strong>Office</strong><br/>
-        Bus-stand, Bishrampur, Surguja Sambhag, Chhattisgarh
-      </div>
-      <div>
-        <strong>Legal</strong><br/>
-        <a href="#" id="openPolicy">Privacy Policy</a>
-      </div>
-    </div>
-  <div style="text-align:center;margin-top:20px;">
-        <a href="#" id="adminLink" class="btn" aria-label="Open admin panel">Admin</a>
-      </div>
-    </footer>  <script>
-  document.addEventListener('DOMContentLoaded', ()=>{
-    // ---- Config ----
-    const REVEAL_CONTACT_NUMBER = '831900020'; // Edit this number as needed
+</main>
 
-    // ---- Utilities ----
-    const $ = (q, root=document) => root.querySelector(q);
-    const $$ = (q, root=document) => Array.from(root.querySelectorAll(q));
-    const toast = (msg) => { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2500) };
+<footer>© 2025 Surguja Property Hub · Contact: +91-8319454138</footer>
 
-    const fmtINR = (n)=> n==null||n===''? '' : new Intl.NumberFormat('en-IN', {style:'currency', currency:'INR', maximumFractionDigits:0}).format(Number(n));
-    const cleanPhone = (v)=> (v||'').replace(/\D/g,'').slice(-10);
-    const maskLast5 = (v)=>{
-      const s = (v||'').replace(/\D/g,'');
-      const last5 = s.slice(-5);
-      return '*****' + last5;
-    };
+<!-- modal + toast -->
+<div id="classModal" class="modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <h3 id="mTitle"></h3>
+    <div id="mBody" style="margin-top:8px"></div>
+    <div style="margin-top:12px"><button id="closeModal" class="btn-primary" style="width:100%">Close</button></div>
+  </div>
+</div>
 
-    const dbKey = 'buyerRequirements_v1';
-    const pinKey = 'adminPINHash_v1';
+<div id="toast" class="toast" aria-live="polite"></div>
 
-    async function sha256(str){
-      const buf = new TextEncoder().encode(str);
-      const hash = await crypto.subtle.digest('SHA-256', buf);
-      return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
-    }
+<script>
+/* Simple client-only app (localStorage) */
+/* Constants */
+const $ = sel => document.querySelector(sel);
+const dbKey = 'reqDB_v1';
+const ADMIN_PASSWORD = 'surguja@2025';
+const REVEAL = '8319454138';
 
-    function loadDB(){
-      try{ return JSON.parse(localStorage.getItem(dbKey)||'[]'); }catch(e){ return [] }
-    }
-    function saveDB(rows){ localStorage.setItem(dbKey, JSON.stringify(rows)); }
+/* Utils */
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+function loadDB(){ try { return JSON.parse(localStorage.getItem(dbKey) || '[]'); } catch(e){ return []; } }
+function saveDB(list){ localStorage.setItem(dbKey, JSON.stringify(list)); }
 
-    // ---- CLASSIFIEDS (demo data + render) ----
-    const classifieds = [
-      { id:1, title:'House for Sale – Ambikapur', type:'House', area:'Ambikapur', price:3200000, size:'1200 sqft', desc:'2BHK near main market, loan possible', phone:'9876543210', whatsapp:'9876543210' },
-      { id:2, title:'Residential Plot – Udaipur (CG)', type:'Plot', area:'Udaipur', price:900000, size:'1500 sqft', desc:'East-facing, 20ft road', phone:'9988776655', whatsapp:'' },
-      { id:3, title:'Commercial Shop – Premnagar', type:'Commercial', area:'Premnagar', price:1500000, size:'300 sqft', desc:'Main road frontage', phone:'9123456789', whatsapp:'9988012345' },
-    ];
+/* Demo classifieds data - in production load from Airtable or server */
+const classifieds = [
+  { title:'House for Sale – Ambikapur', type:'House', area:'Ambikapur', price:3200000, phone:'9876543210', size:'1200 sqft', desc:'2BHK near main market, loan possible' },
+  { title:'Plot – Udaipur', type:'Plot', area:'Udaipur', price:900000, phone:'9988776655', size:'1500 sqft', desc:'East-facing, 20ft road' },
+  { title:'Commercial Shop – Premnagar', type:'Commercial', area:'Premnagar', price:1500000, phone:'9123456789', size:'300 sqft', desc:'Main road frontage' },
+  { title:'2BHK Flat for Rent – Ambikapur', type:'Rental', area:'Ambikapur', price:12000, phone:'9012345678', size:'2BHK', desc:'Semi-furnished, near bus stand' }
+];
 
-    function renderClassifieds(){
-      const grid = $('#classGrid');
-      if(!grid) return; // safety
-      grid.innerHTML = '';
-      classifieds.forEach(c=>{
-        const row = document.createElement('button');
-        row.type = 'button';
-        row.className = 'class-row';
-        row.setAttribute('aria-label', 'Open listing details');
-        row.innerHTML = `
-          <span class="badge">${c.type}</span>
-          <span class="grow">${c.title} • ${c.area} • ${fmtINR(c.price)} • ${c.size||''}</span>
-          <span class="muted">Tap for details</span>`;
-        row.addEventListener('click', ()=> openClassModal(c));
-        grid.appendChild(row);
-      });
-    }
+function fmtINR(n){
+  if(n==null || n==='') return '';
+  if(typeof n === 'number') return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
+  return n;
+}
+function maskLast5(phone){
+  const s = (phone || '').replace(/\D/g,'');
+  return '*****' + s.slice(-5);
+}
 
-    function openClassModal(c){
-      $('#classTitle').textContent = c.title;
-      const body = $('#classBody');
-      body.innerHTML = `
-        <div style="display:grid;gap:8px">
-          <div><strong>Type:</strong> ${c.type}</div>
-          <div><strong>Area:</strong> ${c.area}</div>
-          <div><strong>Price:</strong> ${fmtINR(c.price)}</div>
-          ${c.size? `<div><strong>Size:</strong> ${c.size}</div>`:''}
-          ${c.desc? `<div><strong>Details:</strong> ${c.desc}</div>`:''}
-          <div><strong>Phone:</strong> <a href="#" data-reveal="phone">${maskLast5(c.phone)}</a></div>
-          <div><strong>WhatsApp:</strong> <a href="#" data-reveal="wa">${c.whatsapp? maskLast5(c.whatsapp): '-'}</a></div>
+/* Render classifieds list */
+function renderClassifieds(){
+  const grid = $('#classGrid');
+  grid.innerHTML = '';
+  classifieds.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'class-item';
+    row.innerHTML = `
+      <div class="class-left">
+        <div class="badge">${item.type}</div>
+        <div class="class-info">
+          <strong title="${(item.title||'')}">${item.title}</strong>
+          <div class="meta">${item.area} • ${fmtINR(item.price)} ${item.size? '• ' + item.size : ''}</div>
         </div>
-        <div class="actions" style="margin-top:12px">
-          <button class="btn btn-primary" id="closeClass">Close</button>
-        </div>`;
-
-      // Bind reveal handlers
-      $$('[data-reveal]', body).forEach(el=>{
-        el.addEventListener('click', (e)=>{
-          e.preventDefault();
-          alert(`Contact ${REVEAL_CONTACT_NUMBER} to know the customer phone/WhatsApp number.`);
-        });
-      });
-
-      $('#classModal').classList.add('active');
-      $('#closeClass').addEventListener('click', ()=> $('#classModal').classList.remove('active'));
-      $('#classModal').addEventListener('click', (e)=>{ if(e.target.id==='classModal') $('#classModal').classList.remove('active') });
-    }
-
-    // ---- Requirement Form handling ----
-    $('#reqForm').addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      const name = $('#name').value.trim();
-      const phone = cleanPhone($('#phone').value);
-      const whatsapp = cleanPhone($('#whatsapp').value);
-      const location = $('#location').value.trim();
-      const ptype = $('#ptype').value;
-      const bmin = $('#budgetMin').value;
-      const bmax = $('#budgetMax').value;
-      const notes = $('#notes').value.trim();
-      const consent = $('#consent').checked;
-
-      if(!phone || phone.length!==10){ toast('Enter a valid 10-digit phone number'); return }
-      if(!consent){ toast('Please agree to be contacted'); return }
-
-      const row = { id: Date.now(), ts: new Date().toISOString(), name, phone, whatsapp, location, ptype, bmin, bmax, notes };
-      const db = loadDB(); db.unshift(row); saveDB(db);
-
-      $('#reqForm').reset();
-      $('#submitHint').textContent = `Thank you${name? ', '+name: ''}. We will contact you soon.`;
-      toast('Requirement submitted');
-      if($('#adminPanel').style.display!=='none') renderTable();
-    });
-
-    // ---- Admin auth (client-side only) ----
-    async function ensurePIN(){
-      const existing = localStorage.getItem(pinKey);
-      if(!existing){
-        const pin = prompt('Set a 4-8 digit Admin PIN (first-time setup)');
-        if(!pin || !/^\d{4,8}$/.test(pin)){ alert('PIN setup cancelled.'); return false }
-        const hash = await sha256(pin);
-        localStorage.setItem(pinKey, hash);
-        toast('PIN set. Use the same to unlock admin.');
-        return true;
-      }
-      return true;
-    }
-    async function unlockAdmin(){
-      const ok = await ensurePIN(); if(!ok) return false;
-      const hash = localStorage.getItem(pinKey);
-      const pin = prompt('Enter Admin PIN');
-      if(!pin){ return false }
-      const test = await sha256(pin);
-      if(test === hash){ return true } else { alert('Incorrect PIN'); return false }
-    }
-
-    $('#adminLink').addEventListener('click', async (e)=>{
-      e.preventDefault();
-      if(await unlockAdmin()){
-        $('#adminPanel').style.display='block';
-        renderTable();
-        window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
-      }
-    });
-    $('#btnLogout').addEventListener('click', ()=>{
-      $('#adminPanel').style.display='none';
-      toast('Admin locked');
-    });
-
-    // ---- Admin filters + table ----
-    ['fltType','fltLoc','fltMin','fltMax'].forEach(id=>{
-      $('#'+id).addEventListener('input', renderTable);
-      $('#'+id).addEventListener('change', renderTable);
-    });
-
-    function passFilters(r){
-      const t = $('#fltType').value;
-      const k = ($('#fltLoc').value||'').toLowerCase();
-      const mn = Number($('#fltMin').value||0);
-      const mx = Number($('#fltMax').value||0);
-      if(t && r.ptype!==t) return false;
-      if(k && !(r.location||'').toLowerCase().includes(k)) return false;
-      const bmin = Number(r.bmin||0), bmax = Number(r.bmax||0);
-      if(mn && (bmax? bmax<mn : bmin<mn)) return false;
-      if(mx && (bmin? bmin>mx : bmax>mx)) return false;
-      return true;
-    }
-
-    function renderTable(){
-      const tbody = $('#reqTable tbody');
-      const rows = loadDB().filter(passFilters);
-      tbody.innerHTML = '';
-      if(rows.length===0){
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td colspan="9" class="muted" style="padding:14px">No entries match the filter.</td>`;
-        tbody.appendChild(tr); return;
-      }
-      rows.forEach(r=>{
-        const msg = `New requirement from ${r.name||'Buyer'}: Looking for ${r.ptype} in ${r.location||'Surguja'}, Budget: ${r.bmin? fmtINR(r.bmin): ''}${r.bmax? ' - '+fmtINR(r.bmax): ''}. Phone: ${r.phone}.`;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${new Date(r.ts).toLocaleString()}</td>
-          <td>${r.name||'-'}</td>
-          <td><a href="tel:+91${r.phone}">+91-${r.phone}</a></td>
-          <td>${r.whatsapp? '<a target="_blank" rel="noopener" href="https://wa.me/91'+r.whatsapp+'">'+r.whatsapp+'</a>' : '-'}</td>
-          <td>${r.ptype}</td>
-          <td>${r.location||'-'}</td>
-          <td>${r.bmin? fmtINR(r.bmin): ''}${r.bmax? ' – '+fmtINR(r.bmax): ''}</td>
-          <td>${r.notes? r.notes.replaceAll('<','&lt;'): '-'}</td>
-          <td>
-            <button class="btn btn-ghost" data-copy>Copy WhatsApp Msg</button>
-            <button class="btn btn-ghost" data-del>Delete</button>
-          </td>`;
-        tbody.appendChild(tr);
-        tr.querySelector('[data-copy]').addEventListener('click', async ()=>{
-          await navigator.clipboard.writeText(msg);
-          toast('Message copied');
-        });
-        tr.querySelector('[data-del]').addEventListener('click', ()=>{
-          if(confirm('Delete this entry?')){
-            const all = loadDB().filter(x=>x.id!==r.id); saveDB(all); renderTable(); toast('Deleted');
-          }
-        })
-      })
-    }
-
-    // ---- Export / Import ----
-    $('#btnExportCsv').addEventListener('click', ()=>{
-      const rows = loadDB();
-      const headers = ['Date','Name','Phone','WhatsApp','Type','Location','BudgetMin','BudgetMax','Notes'];
-      const lines = [headers.join(',')];
-      rows.forEach(r=>{
-        const csvRow = [
-          new Date(r.ts).toISOString(),
-          (r.name||'').replaceAll('"','""'),
-          r.phone||'',
-          r.whatsapp||'',
-          r.ptype||'',
-          (r.location||'').replaceAll('"','""'),
-          r.bmin||'',
-          r.bmax||'',
-          (r.notes||'').replaceAll('"','""')
-        ].map(v=>`"${v}"`).join(',');
-        lines.push(csvRow);
-      })
-      const blob = new Blob([lines.join('\n')], {type:'text/csv'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='buyer_requirements.csv'; a.click(); URL.revokeObjectURL(a.href);
-    });
-
-    $('#btnExportJson').addEventListener('click', ()=>{
-      const blob = new Blob([JSON.stringify(loadDB(), null, 2)], {type:'application/json'});
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download='buyer_requirements.json'; a.click(); URL.revokeObjectURL(a.href);
-    });
-
-    $('#importJson').addEventListener('change', (e)=>{
-      const file = e.target.files[0]; if(!file) return;
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        try{
-          const data = JSON.parse(reader.result);
-          if(!Array.isArray(data)) throw new Error('Invalid JSON');
-          saveDB(data); renderTable(); toast('Imported');
-        }catch(err){ alert('Import failed: '+err.message) }
-      };
-      reader.readAsText(file);
-      e.target.value = '';
-    });
-
-    // ---- Footer policy modal ----
-    $('#openPolicy').addEventListener('click', (e)=>{ e.preventDefault(); $('#policyModal').classList.add('active') });
-    $('#closePolicy').addEventListener('click', ()=> $('#policyModal').classList.remove('active'));
-    $('#policyModal').addEventListener('click', (e)=>{ if(e.target.id==='policyModal') $('#policyModal').classList.remove('active') });
-
-    // ---- Init ----
-    renderClassifieds();
-
-    // Autofill WhatsApp if left blank
-    $('#phone').addEventListener('input', ()=>{ const p=cleanPhone($('#phone').value); if(!$('#whatsapp').value) $('#whatsapp').value=p });
-
-    // ---- Basic Tests (console + toast) ----
-    function runTests(){
-      const tests = [];
-      tests.push({name:'Form exists', pass: !!document.getElementById('reqForm')});
-      tests.push({name:'Classified grid exists', pass: !!document.getElementById('classGrid')});
-      tests.push({name:'Admin table exists', pass: !!document.getElementById('reqTable')});
-      tests.push({name:'Classifieds rendered', pass: document.querySelectorAll('#classGrid .class-row').length>=3});
-      const allPass = tests.every(t=>t.pass);
-      console.table(tests);
-      toast(allPass? 'All tests passed' : 'Some tests failed – check console');
-    }
-    runTests();
+      </div>
+      <div><button class="view-btn" aria-label="View details">View</button></div>
+    `;
+    row.addEventListener('click', ()=> openModal(item));
+    grid.appendChild(row);
   });
-  </script></body>
+}
+
+/* Open modal */
+function openModal(item){
+  $('#mTitle').textContent = item.title || '';
+  $('#mBody').innerHTML = `
+    <p><strong>Type:</strong> ${item.type || '-'}</p>
+    <p><strong>Area:</strong> ${item.area || '-'}</p>
+    <p><strong>Price:</strong> ${fmtINR(item.price)}</p>
+    ${item.size? `<p><strong>Size:</strong> ${item.size}</p>` : ''}
+    ${item.desc? `<p><strong>Details:</strong> ${item.desc}</p>` : ''}
+    <p><strong>Phone:</strong> ${maskLast5(item.phone)} <br>
+       <button id="revealBtn" class="btn-ghost" style="margin-top:8px">Reveal</button></p>
+  `;
+  $('#classModal').classList.add('active');
+  $('#revealBtn').onclick = ()=> alert(`contact ${REVEAL} to know customer's contact details.`);
+}
+$('#closeModal').onclick = ()=> $('#classModal').classList.remove('active');
+
+/* Form submit - saves to localStorage (demo) */
+$('#reqForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  if(!$('#consent').checked){
+    toast('कृपया सहमति दें कि आपको संपर्क किया जा सकता है');
+    return;
+  }
+  const rec = {
+    ts: new Date().toLocaleString(),
+    name: $('#name').value.trim() || '-',
+    phone: $('#phone').value.trim() || '-',
+    whatsapp: $('#whatsapp').value.trim() || '-',
+    ptype: $('#ptype').value || '-',
+    location: $('#location').value.trim() || '-',
+    budgetMin: $('#budgetMin').value || '',
+    budgetMax: $('#budgetMax').value || '',
+    notes: $('#notes').value.trim() || ''
+  };
+  const list = loadDB();
+  list.unshift(rec);
+  saveDB(list);
+  toast('Submitted');
+  this.reset();
+  renderTable();
+});
+
+/* Admin: show saved requirements from localStorage */
+function renderTable(){
+  const body = $('#reqBody');
+  const rows = loadDB();
+  body.innerHTML = '';
+  rows.forEach(r=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.ts}</td><td>${r.name}</td><td>${r.phone}</td><td>${r.ptype}</td><td>${r.location}</td>`;
+    body.appendChild(tr);
+  });
+}
+
+/* Admin button protected by password */
+$('#adminBtn').addEventListener('click', ()=>{
+  const p = prompt('Enter Admin Password');
+  if(p === ADMIN_PASSWORD){
+    $('#adminPanel').style.display = 'block';
+    renderTable();
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    toast('Admin unlocked');
+  } else {
+    toast('Wrong Password');
+  }
+});
+
+/* Init */
+renderClassifieds();
+
+/* Prevent horizontal scroll on small devices */
+(function preventOverflow(){
+  document.documentElement.style.overflowX = 'hidden';
+  document.body.style.overflowX = 'hidden';
+})();
+</script>
+</body>
 </html>
