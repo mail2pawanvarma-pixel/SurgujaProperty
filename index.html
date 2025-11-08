@@ -33,7 +33,7 @@ button{border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:.
 .badge{background:#e3f2fd;color:#0d47a1;padding:4px 8px;border-radius:20px;font-size:.8rem;font-weight:700;margin-right:5px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:100}
 .modal.active{display:flex}
-.modal-box{background:#fff;border-radius:12px;padding:16px;max-width:480px;width:90%}
+.modal-box{background:#fff;border-radius:12px;padding:16px;max-width:520px;width:92%}
 .toast{position:fixed;bottom:16px;right:16px;background:#111;color:#fff;padding:10px 14px;border-radius:10px;opacity:0;transition:.3s;z-index:200}
 .toast.show{opacity:1}
 table{width:100%;border-collapse:collapse;margin-top:10px}
@@ -42,186 +42,363 @@ th{background:#f2f5f9;font-weight:700}
 footer{text-align:center;padding:14px;color:#6b7280;font-size:.9rem}
 .user-actions{display:flex;gap:6px;margin-top:6px}
 .user-actions button{font-size:.8rem;padding:6px 10px}
+.message{margin-top:10px;padding:10px;border-radius:10px;background:#eef7ee;color:#064e3b;display:none}
+.error{background:#fff2f0;color:#7a271a;border-radius:10px;padding:10px;display:none;margin-top:10px}
 </style>
 </head>
 <body>
 <header><div class="logo">SP</div><h1>Surguja Property Hub</h1></header>
 
 <main class="container">
+  <section class="card" aria-labelledby="reqTitle">
+    <h2 id="reqTitle">अपनी आवश्यकता दर्ज करें</h2>
+    <p class="small-muted">सुरगुजा संभाग केंद्रित खरीदार सेवा। अपनी आवश्यकता साझा करें; जैसे ही उपयुक्त संपत्ति उपलब्ध होगी, हम आपको सूचित करेंगे।</p>
 
-<section class="card">
-<h2>अपनी आवश्यकता दर्ज करें</h2>
-<p class="small-muted">सुरगुजा संभाग केंद्रित खरीदार सेवा। अपनी आवश्यकता साझा करें; जैसे ही उपयुक्त संपत्ति उपलब्ध होगी, हम आपको सूचित करेंगे।</p>
+    <form id="reqForm" novalidate>
+      <label for="name">नाम</label>
+      <input id="name" name="name" type="text" placeholder="पूरा नाम">
 
-<form id="reqForm">
-<label>नाम</label>
-<input id="name" type="text" placeholder="पूरा नाम">
+      <label for="phone">मोबाइल नंबर (अनिवार्य)</label>
+      <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="10-digit mobile" required>
 
-<label>मोबाइल नंबर (अनिवार्य)</label>
-<input id="phone" type="tel" placeholder="10-digit mobile" required>
+      <div class="grid grid-2">
+        <div>
+          <label for="ptype">प्रॉपर्टी प्रकार</label>
+          <select id="ptype" name="ptype">
+            <option>Plot</option><option>House</option><option>Land</option><option>Commercial</option><option>Rental</option>
+          </select>
+        </div>
+        <div>
+          <label for="location">स्थान</label>
+          <input id="location" name="location" type="text" placeholder="e.g., Ambikapur">
+        </div>
+      </div>
 
-<div class="grid grid-2">
-<div>
-<label>प्रॉपर्टी प्रकार</label>
-<select id="ptype">
-<option>Plot</option><option>House</option><option>Land</option><option>Commercial</option><option>Rental</option>
-</select>
-</div>
-<div>
-<label>स्थान</label>
-<input id="location" type="text" placeholder="e.g., Ambikapur">
-</div>
-</div>
+      <div class="grid grid-2">
+        <div><label for="budgetMin">Budget Min (₹)</label><input id="budgetMin" name="budgetMin" type="number" placeholder="e.g., 500000"></div>
+        <div><label for="budgetMax">Budget Max (₹)</label><input id="budgetMax" name="budgetMax" type="number" placeholder="e.g., 2500000"></div>
+      </div>
 
-<div class="grid grid-2">
-<div><label>Budget Min (₹)</label><input id="budgetMin" type="number" placeholder="e.g., 500000"></div>
-<div><label>Budget Max (₹)</label><input id="budgetMax" type="number" placeholder="e.g., 2500000"></div>
-</div>
+      <label for="postDate">तारीख चुनें</label>
+      <input id="postDate" name="postDate" type="date">
 
-<label>तारीख चुनें</label>
-<input id="postDate" type="date">
+      <label for="notes">नोट्स</label>
+      <textarea id="notes" name="notes" rows="3" placeholder="Facing, loan need, etc."></textarea>
 
-<label>नोट्स</label>
-<textarea id="notes" rows="3" placeholder="Facing, loan need, etc."></textarea>
+      <div class="actions">
+        <button type="submit" class="btn-primary">Submit Requirement</button>
+        <button type="reset" class="btn-ghost">Clear</button>
+      </div>
 
-<div class="actions">
-<button type="submit" class="btn-primary">Submit Requirement</button>
-<button type="reset" class="btn-ghost">Clear</button>
-</div>
-</form>
-</section>
+      <div id="submitMsg" class="message" role="status" aria-live="polite"></div>
+      <div id="submitError" class="error" role="alert"></div>
+    </form>
+  </section>
 
-<section class="card">
-<h2>Classified Listings</h2>
-<div id="classGrid" class="class-list" style="margin-top:8px"></div>
-</section>
+  <section class="card">
+    <h2>Classified Listings</h2>
+    <div id="classGrid" class="class-list" style="margin-top:8px" aria-live="polite"></div>
+  </section>
 
-<section id="adminPanel" class="card" style="display:none">
-<h2>Admin Panel</h2>
-<div style="overflow:auto">
-<table>
-<thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Type</th><th>Location</th><th>Budget Range</th><th>Actions</th></tr></thead>
-<tbody id="reqBody"></tbody>
-</table>
-</div>
-</section>
+  <section id="adminPanel" class="card" style="display:none">
+    <h2>Admin Panel</h2>
+    <div style="overflow:auto">
+      <table>
+        <thead><tr><th>Date</th><th>Name</th><th>Phone</th><th>Type</th><th>Location</th><th>Budget Range</th><th>Actions</th></tr></thead>
+        <tbody id="reqBody"></tbody>
+      </table>
+    </div>
+  </section>
 
-<div style="text-align:center;margin-top:10px">
-<button id="adminBtn" class="btn-ghost">Admin</button>
-</div>
-
+  <div style="text-align:center;margin-top:10px">
+    <button id="adminBtn" class="btn-ghost">Admin</button>
+  </div>
 </main>
 
 <footer>© 2025 Surguja Property Hub · Contact: +91-8319454138</footer>
 
 <!-- Modal + Toast -->
-<div id="classModal" class="modal"><div class="modal-box"><h3 id="mTitle"></h3><div id="mBody"></div><button id="closeModal" class="btn-primary" style="margin-top:10px;width:100%">Close</button></div></div>
-<div id="toast" class="toast"></div>
+<div id="classModal" class="modal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <h3 id="mTitle"></h3>
+    <div id="mBody" style="margin-top:8px"></div>
+    <div style="margin-top:12px"><button id="closeModal" class="btn-primary" style="width:100%">Close</button></div>
+  </div>
+</div>
+
+<div id="toast" class="toast" aria-live="polite"></div>
 
 <script>
-const $=q=>document.querySelector(q);
-const dbKey='reqDB_v3';
-const ADMIN_PASSWORD='surguja@2025';
-const REVEAL='8319454138';
+document.addEventListener('DOMContentLoaded', ()=>{
 
-function toast(t){const x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2000);}
-function load(){return JSON.parse(localStorage.getItem(dbKey)||'[]');}
-function save(d){localStorage.setItem(dbKey,JSON.stringify(d));}
+  const $ = sel => document.querySelector(sel);
+  const dbKey = 'reqDB_v3';
+  const ADMIN_PASSWORD = 'surguja@2025';
+  const REVEAL = '8319454138';
 
-function fmtINR(n){if(!n)return'';return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);}
-function maskLast5(v){const s=(v||'').replace(/\D/g,'');return '*****'+s.slice(-5);}
+  const toastEl = $('#toast');
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    setTimeout(()=>toastEl.classList.remove('show'), 2200);
+  }
 
-/* Demo classifieds */
-const classifiedsStatic=[
- {title:'House for Sale – Ambikapur',type:'House',area:'Ambikapur',price:3200000,desc:'2BHK near main market',phone:'9876543210'},
- {title:'Plot – Udaipur',type:'Plot',area:'Udaipur',price:900000,desc:'East-facing 20ft road',phone:'9988776655'}
-];
+  function load(){ try { return JSON.parse(localStorage.getItem(dbKey) || '[]'); } catch (e) { return []; } }
+  function save(list){ localStorage.setItem(dbKey, JSON.stringify(list)); }
 
-function renderClassifieds(){
- const grid=$('#classGrid');
- grid.innerHTML='';
- const reqs=load();
- const combined=[
-  ...reqs.map(r=>({title:`${r.ptype} Requirement – ${r.location||''}`,type:r.ptype,area:r.location,price:`${r.budgetMin||''}-${r.budgetMax||''}`,desc:r.notes,phone:r.phone,id:r.id,user:true,date:r.date})),
-  ...classifiedsStatic
- ];
- combined.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
- combined.forEach(c=>{
-   const div=document.createElement('div');
-   div.className='class-item';
-   div.innerHTML=`<div class="class-info"><strong>${c.title}</strong><span>${c.area||'-'} • ${c.price}</span></div><div style="display:flex;gap:6px;align-items:center;"><button class="btn-ghost" style="padding:6px 10px;font-size:.9rem">View</button>${c.user?`<button class="btn-ghost" style="padding:6px 10px;font-size:.9rem" data-edit="${c.id}">Edit</button><button class="btn-ghost" style="padding:6px 10px;font-size:.9rem" data-del="${c.id}">Delete</button>`:''}</div>`;
-   div.querySelector('.btn-ghost').onclick=(e)=>{e.stopPropagation();openModal(c)};
-   grid.appendChild(div);
- });
- grid.querySelectorAll('[data-del]').forEach(b=>{
-   b.onclick=()=>{if(confirm('Delete this post?')){const all=load().filter(x=>x.id!=b.dataset.del);save(all);renderClassifieds();renderTable();toast('Deleted');}};
- });
- grid.querySelectorAll('[data-edit]').forEach(b=>{
-   b.onclick=()=>{const rec=load().find(x=>x.id==b.dataset.edit);if(!rec)return;fillForm(rec,true);window.scrollTo({top:0,behavior:'smooth'});}
- });
-}
+  function fmtINR(n){
+    if(n==null || n==='') return '';
+    if(typeof n === 'number') return new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
+    return n;
+  }
+  function maskLast5(v){ const s = (v||'').replace(/\D/g,''); return '*****'+s.slice(-5); }
 
-function openModal(c){
- $('#mTitle').textContent=c.title;
- $('#mBody').innerHTML=`<p><strong>Type:</strong> ${c.type}</p><p><strong>Area:</strong> ${c.area}</p><p><strong>Price Range:</strong> ${c.price}</p><p><strong>Details:</strong> ${c.desc||'-'}</p><p><strong>Phone:</strong> ${maskLast5(c.phone)}<br><button id='revealBtn' class='btn-ghost' style='margin-top:8px'>Reveal</button></p>`;
- $('#classModal').classList.add('active');
- $('#revealBtn').onclick=()=>alert(\`contact ${REVEAL} to know customer's contact details.\`);
-}
-$('#closeModal').onclick=()=>$('#classModal').classList.remove('active');
+  // demo static classifieds
+  const classifiedsStatic = [
+    { title:'House for Sale – Ambikapur', type:'House', area:'Ambikapur', price:3200000, desc:'2BHK near main market', phone:'9876543210' },
+    { title:'Plot – Udaipur', type:'Plot', area:'Udaipur', price:900000, desc:'East-facing, 20ft road', phone:'9988776655' }
+  ];
 
-function fillForm(r,isEdit=false){
- $('#name').value=r.name;
- $('#phone').value=r.phone;
- $('#ptype').value=r.ptype;
- $('#location').value=r.location;
- $('#budgetMin').value=r.budgetMin;
- $('#budgetMax').value=r.budgetMax;
- $('#notes').value=r.notes;
- $('#postDate').value=r.date?new Date(r.date).toISOString().slice(0,10):'';
- $('#reqForm').dataset.editId=isEdit?r.id:'';
-}
+  // Set min date for date input to today (no past dates)
+  (function setMinDate(){
+    const dt = new Date();
+    const yyyy = dt.getFullYear();
+    const mm = String(dt.getMonth()+1).padStart(2,'0');
+    const dd = String(dt.getDate()).padStart(2,'0');
+    const min = `${yyyy}-${mm}-${dd}`;
+    $('#postDate').setAttribute('min', min);
+  })();
 
-$('#reqForm').onsubmit=e=>{
- e.preventDefault();
- const phone=$('#phone').value.trim();
- if(phone===''||phone.length<10){toast('मोबाइल नंबर आवश्यक है');return;}
- const now=new Date();
- const id=$('#reqForm').dataset.editId||Date.now().toString();
- const newRec={id,name:$('#name').value,phone,ptype:$('#ptype').value,location:$('#location').value,budgetMin:$('#budgetMin').value,budgetMax:$('#budgetMax').value,notes:$('#notes').value,date:$('#postDate').value||now.toISOString()};
- let all=load();
- const existingIndex=all.findIndex(x=>x.id==id);
- if(existingIndex>=0) all[existingIndex]=newRec; else all.unshift(newRec);
- save(all);
- $('#reqForm').reset();
- $('#reqForm').dataset.editId='';
- toast(existingIndex>=0?'Updated':'Submitted');
- renderClassifieds();renderTable();
-};
+  // Render classifieds (user requirements + static). Latest first.
+  function renderClassifieds(){
+    const grid = $('#classGrid');
+    grid.innerHTML = '';
+    const reqs = load(); // user posts (local)
+    const combined = [
+      ...reqs.map(r => ({ title: `${r.ptype} Requirement – ${r.location||''}`, type: r.ptype, area: r.location, price: `${r.budgetMin||''}-${r.budgetMax||''}`, desc: r.notes, phone: r.phone, id: r.id, user: true, date: r.date || r.ts })),
+      ...classifiedsStatic.map(c => ({ ...c, user: false, date: c.date || '' }))
+    ];
+    combined.sort((a,b)=>{
+      const da = new Date(a.date || a.ts || 0).getTime();
+      const db = new Date(b.date || b.ts || 0).getTime();
+      return db - da;
+    });
 
-function renderTable(){
- const tb=$('#reqBody');
- tb.innerHTML='';
- const rows=load();
- if(!rows.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:#777;padding:10px">No data</td></tr>';return;}
- rows.forEach(r=>{
-   const tr=document.createElement('tr');
-   tr.innerHTML=\`<td>\${new Date(r.date).toLocaleDateString()}</td><td>\${r.name}</td><td>\${r.phone}</td><td>\${r.ptype}</td><td>\${r.location}</td><td>\${r.budgetMin||'-'}–\${r.budgetMax||'-'}</td><td><button class='btn-ghost' data-edit='\${r.id}' style='font-size:.8rem;padding:4px 8px'>Edit</button><button class='btn-ghost' data-del='\${r.id}' style='font-size:.8rem;padding:4px 8px'>Delete</button></td>\`;
-   tb.appendChild(tr);
- });
- tb.querySelectorAll('[data-del]').forEach(b=>{
-   b.onclick=()=>{if(confirm('Delete this requirement?')){const id=b.dataset.del;const all=load().filter(x=>x.id!=id);save(all);renderTable();renderClassifieds();toast('Deleted');}};
- });
- tb.querySelectorAll('[data-edit]').forEach(b=>{
-   b.onclick=()=>{const rec=load().find(x=>x.id==b.dataset.edit);fillForm(rec,true);window.scrollTo({top:0,behavior:'smooth'});}
- });
-}
+    if(combined.length === 0){
+      const note = document.createElement('div');
+      note.className = 'small-muted';
+      note.textContent = 'No listings yet.';
+      grid.appendChild(note);
+      return;
+    }
 
-$('#adminBtn').onclick=()=>{
- const p=prompt('Enter Admin Password');
- if(p===ADMIN_PASSWORD){$('#adminPanel').style.display='block';renderTable();window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});}else toast('Wrong Password');
-};
+    combined.forEach(item=>{
+      const row = document.createElement('div');
+      row.className = 'class-item';
+      const priceText = item.price ? (isNaN(Number(item.price)) ? item.price : fmtINR(Number(item.price))) : '-';
+      row.innerHTML = `
+        <div class="class-info">
+          <strong title="${(item.title||'')}">${item.title}</strong>
+          <span>${item.area||'-'} • ${priceText}</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="btn-ghost view-btn" type="button" aria-label="View">View</button>
+          ${item.user ? `<button class="btn-ghost edit-btn" type="button" data-id="${item.id}">Edit</button><button class="btn-ghost del-btn" type="button" data-id="${item.id}">Delete</button>` : ''}
+        </div>
+      `;
+      // view handler
+      row.querySelector('.view-btn').addEventListener('click', (e)=>{
+        e.stopPropagation();
+        openModal(item);
+      });
+      // edit & delete for user items
+      if(item.user){
+        row.querySelector('.edit-btn').addEventListener('click', (e)=>{
+          e.stopPropagation();
+          const rec = load().find(x=>x.id === item.id);
+          if(rec) fillForm(rec, true);
+          window.scrollTo({top:0, behavior:'smooth'});
+        });
+        row.querySelector('.del-btn').addEventListener('click', (e)=>{
+          e.stopPropagation();
+          if(confirm('Delete this post?')){
+            const newAll = load().filter(x=>x.id !== item.id);
+            save(newAll);
+            renderClassifieds();
+            renderTable();
+            showSubmissionMessage('Deleted your post');
+            toast('Deleted');
+          }
+        });
+      }
+      grid.appendChild(row);
+    });
+  }
 
-renderClassifieds();
+  function openModal(item){
+    $('#mTitle').textContent = item.title || '';
+    $('#mBody').innerHTML = `
+      <p><strong>Type:</strong> ${item.type || '-'}</p>
+      <p><strong>Area:</strong> ${item.area || '-'}</p>
+      <p><strong>Price Range:</strong> ${item.price || '-'}</p>
+      ${item.desc ? `<p><strong>Details:</strong> ${item.desc}</p>` : ''}
+      <p><strong>Phone:</strong> ${maskLast5(item.phone || '')}<br>
+         <button id="revealBtn" class="btn-ghost" style="margin-top:8px">Reveal</button></p>
+    `;
+    $('#classModal').classList.add('active');
+    const rb = $('#revealBtn');
+    if(rb) rb.addEventListener('click', ()=> alert(`contact ${REVEAL} to know customer's contact details.`));
+  }
+  $('#closeModal').addEventListener('click', ()=> $('#classModal').classList.remove('active'));
+
+  // Fill form for edit
+  function fillForm(rec, isEdit=false){
+    $('#name').value = rec.name || '';
+    $('#phone').value = rec.phone || '';
+    $('#ptype').value = rec.ptype || 'Plot';
+    $('#location').value = rec.location || '';
+    $('#budgetMin').value = rec.budgetMin || '';
+    $('#budgetMax').value = rec.budgetMax || '';
+    $('#notes').value = rec.notes || '';
+    // set date (YYYY-MM-DD)
+    try{
+      const d = rec.date ? new Date(rec.date) : new Date();
+      $('#postDate').value = d.toISOString().slice(0,10);
+    }catch(e){}
+    if(isEdit) $('#reqForm').dataset.editId = rec.id;
+    else delete $('#reqForm').dataset.editId;
+    // clear previous messages
+    hideSubmissionMessage();
+  }
+
+  // Show inline confirmation message (below form)
+  function showSubmissionMessage(msg){
+    const el = $('#submitMsg');
+    el.textContent = msg;
+    el.style.display = 'block';
+    setTimeout(()=>{ el.style.display = 'none'; }, 4200);
+  }
+  function showSubmissionError(msg){
+    const el = $('#submitError');
+    el.textContent = msg;
+    el.style.display = 'block';
+    setTimeout(()=>{ el.style.display = 'none'; }, 4200);
+  }
+  function hideSubmissionMessage(){ $('#submitMsg').style.display = 'none'; $('#submitError').style.display='none';}
+
+  // Form submit: mobile-number required & 10 digits
+  $('#reqForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    hideSubmissionMessage();
+    const name = $('#name').value.trim();
+    const phoneRaw = $('#phone').value.replace(/\s+/g,'').trim();
+    const phoneDigits = phoneRaw.replace(/\D/g,'');
+    if(!phoneDigits || phoneDigits.length !== 10){
+      showSubmissionError('कृपया मान्य 10-डिजिट मोबाइल नंबर दर्ज करें');
+      toast('Enter a valid 10-digit mobile number');
+      return;
+    }
+    const ptype = $('#ptype').value;
+    const location = $('#location').value.trim();
+    const budgetMin = $('#budgetMin').value.trim();
+    const budgetMax = $('#budgetMax').value.trim();
+    const notes = $('#notes').value.trim();
+    const dateVal = $('#postDate').value || new Date().toISOString();
+    const now = new Date();
+    const id = $('#reqForm').dataset.editId || Date.now().toString();
+    const rec = {
+      id,
+      ts: now.toISOString(),
+      date: dateVal,
+      name: name || '-',
+      phone: phoneDigits,
+      ptype,
+      location,
+      budgetMin,
+      budgetMax,
+      notes
+    };
+    const all = load();
+    const idx = all.findIndex(x=>x.id === id);
+    if(idx >= 0){
+      all[idx] = rec;
+      save(all);
+      showSubmissionMessage('Requirement updated successfully');
+      toast('Updated');
+    } else {
+      all.unshift(rec);
+      save(all);
+      showSubmissionMessage('Requirement submitted successfully');
+      toast('Submitted');
+    }
+    $('#reqForm').reset();
+    delete $('#reqForm').dataset.editId;
+    renderClassifieds();
+    renderTable();
+  });
+
+  // Render admin table with edit/delete buttons
+  function renderTable(){
+    const tb = $('#reqBody');
+    tb.innerHTML = '';
+    const rows = load();
+    if(!rows.length){
+      tb.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#777;padding:10px">No data</td></tr>';
+      return;
+    }
+    rows.forEach(r=>{
+      const tr = document.createElement('tr');
+      const bd = `${r.budgetMin || '-'} – ${r.budgetMax || '-'}`;
+      tr.innerHTML = `<td>${new Date(r.date || r.ts).toLocaleDateString()}</td><td>${r.name}</td><td>${r.phone}</td><td>${r.ptype}</td><td>${r.location}</td><td>${bd}</td><td><button class="btn-ghost edit-admin" data-id="${r.id}" style="margin-right:6px;padding:6px 8px">Edit</button><button class="btn-ghost del-admin" data-id="${r.id}" style="padding:6px 8px">Delete</button></td>`;
+      tb.appendChild(tr);
+    });
+    tb.querySelectorAll('.del-admin').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        if(confirm('Delete this requirement?')){
+          const id = b.getAttribute('data-id');
+          const newAll = load().filter(x=>x.id !== id);
+          save(newAll);
+          renderTable();
+          renderClassifieds();
+          showSubmissionMessage('Deleted');
+          toast('Deleted');
+        }
+      });
+    });
+    tb.querySelectorAll('.edit-admin').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const id = b.getAttribute('data-id');
+        const rec = load().find(x=>x.id === id);
+        if(rec) {
+          fillForm(rec, true);
+          window.scrollTo({top:0, behavior:'smooth'});
+        }
+      });
+    });
+  }
+
+  // Admin button: opens admin panel after password check
+  $('#adminBtn').addEventListener('click', ()=>{
+    const p = prompt('Enter Admin Password');
+    if(p === ADMIN_PASSWORD){
+      $('#adminPanel').style.display = 'block';
+      renderTable();
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      toast('Admin unlocked');
+    } else {
+      toast('Wrong Password');
+    }
+  });
+
+  // Initialize UI
+  renderClassifieds();
+  hideSubmissionMessage();
+
+  // Prevent horizontal overflow
+  document.documentElement.style.overflowX = 'hidden';
+  document.body.style.overflowX = 'hidden';
+
+}); // DOMContentLoaded end
 </script>
 </body>
 </html>
